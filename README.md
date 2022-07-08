@@ -12,7 +12,7 @@
   安装cert-manager
 
   ```bash
-  helm install cert-manager ./cert-manager/ -n cert-manager --namespace cert-manager --create-namespace
+  helm install cert-manager .charts/cert-manager/ -n cert-manager --namespace cert-manager --create-namespace
   ```
 ## 安装AlphaIDE
 
