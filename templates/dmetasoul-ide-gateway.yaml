@@ -1,0 +1,51 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: dmetasoul-ide
+  labels:
+    {{- include "dmetasoul-ide.labels" . | nindent 4 }}
+spec:
+  gateways:
+  - kubeflow/kubeflow-gateway
+  hosts:
+  - '*'
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: dmetasoul-ide.{{ $.Release.Namespace }}.svc.cluster.local
+        port:
+          number: 8080
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: dmetasoul-ide
+  labels:
+    {{- include "dmetasoul-ide.labels" . | nindent 4 }}
+spec:
+  host: dmetasoul-ide.{{ $.Release.Namespace }}.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: dmetasoul-ide-allow-all
+  labels:
+    {{- include "dmetasoul-ide.labels" . | nindent 4 }}
+spec:
+  action: ALLOW
+  rules:
+  - to:
+    - operation:
+        methods:
+        - GET
+        - POST
+  selector:
+    matchLabels:
+      app: dmetasoul-ide
+{{- end }}

@@ -1,0 +1,46 @@
+apiVersion: v2
+name: alpha-ide
+description: A Helm chart for Kubernetes
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+dependencies:
+  - name: kubeflow
+    version: 1.5.0
+    condition: kubeflow.enabled
+  - name: istio
+    version: 1.0
+    condition: istio.enabled
+  - name: kubernetes-replicator
+    condition: kubernetes-replicator.enabled
+    version: 2.7.3
+  - name: cert-manager
+    condition: cert-manager.enabled
+    version: v1.5.0
+  - name: kube-prometheus-stack
+    condition: kube-prometheus-stack.enabled
+    version: 13.13.0
+  - name: loki
+    condition: loki.enabled
+    version: 2.1.1
+  - name: promtail
+    condition: promtail.enabled
+    version: 2.0.2
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "0.1.0"
+

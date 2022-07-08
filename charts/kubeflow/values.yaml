@@ -1,0 +1,225 @@
+dryRun: false
+
+namespace: kubeflow
+
+# Set enableIngress to true to use Kubernetes ingress to access Kubeflow.
+# else, you need to use istio-ingressgateway service.
+enableIngress: false
+# kubeflowHost is the VirtualService host setting,
+# it should be a FQDN formated string.
+# - If you are using ingress, must set kubeflowHost to a valid domain name.
+# - If you are using IP to access Kubeflow, set kubeflowHost to "*" and enableIngress to false.
+kubeflowHost: "*"
+# kubeflowSitePrefix only supports "/" currently
+kubeflowSitePrefix: "/dashboard"
+# Setup tlsCrt and tlsKey to support HTTPS access (base64 encoded).
+tlsCrt: ""
+tlsKey: ""
+
+# Dex auth configurations
+oidcAuthURL: /dex/auth
+oidcProvider: http://dev.dmetasoul-test.com/dex
+skipAuthURI: "/dex"
+useridClaim: email
+useridHeader: kubeflow-userid
+useridPrefix: "\"\""
+oidcScopes: "profile email groups"
+
+# Set minio.enabled = true to use embeded single node MinIO test deployment.
+minio:
+  enabled: false
+  kfpMinioImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/minio:RELEASE.2019-08-14T20-37-41Z-license-compliance
+# If you are not using the embeded deployment, setup minioAK and minioSK below.
+minioAK: minio
+minioSK: minio123
+
+
+# Set dex.enabled = true to use embeded Dex deployment.
+# If you are using your own Dex server, 
+# you need to setup below clientID, clientSecret, defaultUserEmail
+dex:
+  enabled: true
+  oidcProvider: http://dev.dmetasoul-test.com/dex
+  oidcRedirectURL: /login/oidc
+  defaultUserEmail: user@example.com      
+  # clientID: kubeflow-oidc-authservice
+  # clientSecret: pUBnBOY80SnXgjibTYM9ZWNzY2xreNGQok
+  clientID: a3ViZWZsb3ctb2lkYy1hdXRoc2VydmljZQ==
+  clientSecret: cFVCbkJPWTgwU25YZ2ppYlRZTTlaV056WTJ4cmVOR1Fvaw==
+
+  defaultUserPass: $2y$12$4K/VkmDd1q1Orb3xAt82zu8gk7Ad6ReFR4LCP9UeYE90NLiN9Df72
+
+
+# The default namespace bind to the default user:
+defaultUserProfile: kubeflow-admin
+notebookAccessPipelineDesc: "Allow access pipeline"
+
+# ----------------------------------------------------
+# Images
+# ----------------------------------------------------
+admissionWebhookImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/admission-webhook:v1.5.0
+jupyterWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/jupyter-web-app:v1.5.0
+notebookControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/notebook-controller:v1.5.0
+notebookImageScipy: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/metaspore-training-jupyter:v1.0.6
+notebookImagePytorch: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-pytorch-full:v1.5.0
+notebookImagePytorchCuda: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-pytorch-cuda-full:v1.5.0
+notebookImageTensorflow: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-tensorflow-full:v1.5.0
+notebookImageTensorflowCuda: public.ecr.aws/j1r0q0g6/notebooks/notebook-servers/jupyter-tensorflow-cuda-full:v1.5.0
+
+oidcAuthServiceImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/arrikto/kubeflow/oidc-authservice:28c59ef
+centralDashboardImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/centraldashboard:latest
+kfamAccessManagementImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/access-management:v1.5.0
+kfamProfileControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/profile-controller:v1.5.0
+volumesWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/volumes-web-app:latest
+notebookImageCodeserverPython: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/metaspore-training-codeserver:v1.0.0
+notebookImageRstudioTidyverse: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/rstudio-tidyverse:v1.5.0
+
+# kfpVersion is the version of Kubeflow Pipeline images
+kfpVersion: "1.8.1"
+
+kfpApiServerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/api-server
+
+# below images uses kfpVersion as version tag:
+kfpVisualizationServerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/visualization-server
+kfpFrontendImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/mlpipline-frontend
+kfpViewerCrdControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/viewer-crd-controller
+kfpScheduledWorkflowImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/scheduledworkflow
+kfpPersistenceAgentImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/persistenceagent
+kfpMetadataWriterImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/metadata-writer
+kfpMetadataEnvoyImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/metadata-envoy
+kfpCacheServerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/cache-server
+kfpCacheDeployerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/cache-deployer
+
+# pipeline images using unique tags:
+kfpMlMetadataStoreServerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/tfx-oss-public/ml_metadata_store_server:1.5.0
+kfpCacheImage: gcr.io/google-containers/busybox
+kfpArgoExecImage: gcr.io/ml-pipeline/argoexec:v3.2.3-license-compliance
+kfpArgoControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/workflow-controller:v3.2.3-license-compliance
+kfpMetaControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/metacontrollerio/metacontroller:v2.0.4
+kfpMysqlImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/mysql:5.7
+kfpPythonImage: python:3.7
+
+kfpMinioImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/ml-pipeline/minio:RELEASE.2019-08-14T20-37-41Z-license-compliance
+
+# KFServing
+kfsVersion: "v0.6.1"
+kfsAgentImage: kfserving/agent
+kfsAlibiExplainerImage: kfserving/alibi-explainer
+kfsAixExplainer: kfserving/aix-explainer
+kfsArtExplainer: kfserving/art-explainer
+
+kfsTensorflowImage: tensorflow/serving
+kfsTensorflowImageVersion: "1.14.0"
+kfsTensorflowImageGpuVersion: "1.14.0-gpu"
+
+kfsOnnxImage: mcr.microsoft.com/onnxruntime/server
+kfsOnnxImageVersion: "v1.0.0"
+
+kfsSkLearnImage: kfserving/sklearnserver
+kfsSkLearnImageVersion: "v0.6.1"
+
+kfsSeldonioImage: docker.io/seldonio/mlserver
+kfsSeldonioImageVersion: "0.2.1"
+
+kfsXgbserverImage: kfserving/xgbserver
+kfsXgbserverImageVersion: "v0.6.1"
+
+kfsPytorchImage: kfserving/pytorchserver
+kfsPytorchImageVersion: "v0.6.1"
+kfsPytorchImageGpuVersion: "v0.6.1-gpu"
+
+kfsTorchServeImage: pytorch/torchserve-kfs
+kfsTorchServeImageVersion: "0.4.0"
+kfsTorchServeImageGpuVersion: "0.4.0-gpu"
+
+kfsTritonImage: nvcr.io/nvidia/tritonserver
+kfsTritonImageVersion: "20.08-py3"
+
+kfsPmmlserverImage: kfserving/pmmlserver
+kfsPmmlserverImageVersion: "v0.6.1"
+
+kfsLgbserverImage: kfserving/lgbserver
+kfsLgbserverImageVersion: "v0.6.1"
+
+kfsPaddleserverImage: kfserving/paddleserver
+kfsPaddleserverImageVersion: "v0.6.1"
+
+kfsStorageInitializerImage: kfserving/storage-initializer
+
+kfsModelsWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/models-web-app:latest
+kfsControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/kfserving-controller:v0.6.1
+kfsKubeRbacProxyImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/kubebuilder/kube-rbac-proxy:v0.4.0
+# kserve
+kserveControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/kserve-controller:v0.7.0
+kserveModelsWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/kserve-models-web-app:latest
+# knative
+knativeVersion: "v0.22.1"
+
+# NOTE: kubeflow's knative installation uses digest to pull these images.
+# @sha256:0b8e031170354950f3395876961452af1c62f7ab5161c9e71867392c11881962
+knativeServingQueueImage: gcr.io/knative-releases/knative.dev/serving/cmd/queue
+# @sha256:fed92af8b9779c97482906db8857f27b5d4826708b75d0298aa30fad8900671f
+knativeServingActivatorImage: gcr.io/knative-releases/knative.dev/serving/cmd/activator
+# @sha256:bc5ae3090ab0322ed0e4f9efddb60fa85f6ff3a29156411d24d0e4764b18eba7
+knativeServingAutoscalerImage: gcr.io/knative-releases/knative.dev/serving/cmd/autoscaler
+# @sha256:bd7c6350e5d5c4edaa197a86fb96cff78bdd3e61f33fcb77aa60930de0ec0827
+knativeServingControllerImage: gcr.io/knative-releases/knative.dev/serving/cmd/controller
+# @sha256:1e371db6b1a9f9265fc7a55d15d98c935c0c28925ffde351fb3b93f331c5a08e
+knativeNetWebhookImage: gcr.io/knative-releases/knative.dev/net-istio/cmd/webhook
+# @sha256:ff8680da52ef47b8573ebc3393cbfa2f0f14b05c1e02232807f22699adbef57a
+knativeNetControllerImage: gcr.io/knative-releases/knative.dev/net-istio/cmd/controller
+# @sha256:6f41d379f1aacdfbb8f6d4f539e1769040e4f01bff3ad9c249b427e54dc56ea8
+knativeServingWebhookImage: gcr.io/knative-releases/knative.dev/serving/cmd/webhook
+
+# Used by templates/cluster-local-gateway.yaml for knative istio confs.
+knativeProxyvImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/istio/proxyv2:1.11.4
+# Configmap used by istio, for creating kfserving "cluster-local-gateway".
+# You may use `kubectl -n istio-system get configmap` to confirm.
+knativeIstioConfigmap: istio
+# istio configuration "ISTIO_META_CLUSTER_ID" used by kfserving cluster-local-gateway.
+# Default: Kubernetes
+istioMetaClusterID: Kubernetes
+
+# training operators
+trainingOperatorImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/training/training-operator:174e8813666951ded505daf334a37f60fd50c18d
+mpiOperatorImage: mpioperator/mpi-operator:0.3.0
+mpiOperatorKubectlDeliveryImage: mpioperator/kubectl-delivery:latest
+
+# Tensorboard
+tensorboardControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/tensorboard-controller:v1.5.0
+tensorboardWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/tensorboards-web-app:latest
+
+# katlib
+katibControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/kubeflowkatib/katib-controller:v0.13.0
+katibDBManagerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/kubeflowkatib/katib-db-manager:v0.13.0
+katibUIIamge: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/katib-ui:v0.13.0
+admission-webhook:
+  enabled: true
+centraldashboard:
+  enabled: true
+jupyter-web-app:
+  enabled: true
+katlib:
+  enabled: true
+kfam-profile:
+  enabled: true
+kfservering:
+  enabled: true
+knative:
+  enabled: true
+kserve:
+  enabled: true
+notebook-controller:
+  enabled: true
+oidc-outhervice:
+  enabled: true
+pipelines:
+  enabled: true
+tensorboard:
+  enabled: true
+training-operator:
+  enabled: true
+user-namespace:
+  enabled: true
+volumes-web-app:
+  enabled: true
