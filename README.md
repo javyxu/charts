@@ -1,7 +1,7 @@
 # alpha-ide-chart
 提供Helm方式，快速部署AlphaIDE系统套件。
 
-# Quik-Start
+# Quick-Start
 ## 可选
   安装istio
   
