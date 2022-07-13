@@ -11,7 +11,7 @@ image:
   tag: "dmetasoul-v1.1.5"
 
 istio:
-  enabled: true
+  enabled: false
 kubeflow:
   enabled: true
 kubernetes-replicator:
