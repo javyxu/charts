@@ -11,13 +11,13 @@ image:
   tag: "dmetasoul-v1.1.5"
 
 istio:
-  enabled: false
+  enabled: true
 kubeflow:
   enabled: true
 kubernetes-replicator:
   enabled: true
 cert-manager:
-  enabled: false
+  enabled: true
 kube-prometheus-stack:
   enabled: true
 loki:

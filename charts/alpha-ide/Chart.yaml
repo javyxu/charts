@@ -19,23 +19,32 @@ version: 0.1.0
 dependencies:
   - name: kubeflow
     version: 1.5.0
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
     condition: kubeflow.enabled
   - name: istio
     version: 1.0
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
     condition: istio.enabled
+
   - name: kubernetes-replicator
-    condition: kubernetes-replicator.enabled
     version: 2.7.3
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    condition: kubernetes-replicator.enabled
+
   - name: cert-manager
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
     condition: cert-manager.enabled
     version: v1.5.0
   - name: kube-prometheus-stack
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
     condition: kube-prometheus-stack.enabled
     version: 13.13.0
   - name: loki
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
     condition: loki.enabled
     version: 2.1.1
   - name: promtail
+    repository: http://raw.githubusercontent.com/javyxu/charts/main
     condition: promtail.enabled
     version: 2.0.2
 # This is the version number of the application being deployed. This version number should be
