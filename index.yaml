@@ -5,7 +5,7 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v1
     appVersion: v1.5.0
-    created: "2022-07-14T15:58:40.211939869+08:00"
+    created: "2022-07-14T18:04:02.103263236+08:00"
     description: A Helm chart for cert-manager
     digest: 35b831904c9c3f56365b45e2678dc8eb924e69d0883af8e0c188173d461dd48b
     home: https://github.com/jetstack/cert-manager
@@ -22,12 +22,12 @@ entries:
     sources:
     - https://github.com/jetstack/cert-manager
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/cert-manager-v1.5.0.tgz
+    - cert-manager-v1.5.0.tgz
     version: v1.5.0
   istio:
   - apiVersion: v2
     appVersion: "1.11"
-    created: "2022-07-14T15:58:40.212876291+08:00"
+    created: "2022-07-14T18:04:02.104278444+08:00"
     description: istio for kubeflow.
     digest: d47d7fcc0d481d753f527cf48d6a87304e4fdd5a8970ce6312c2b4c8c36292c8
     keywords:
@@ -41,7 +41,7 @@ entries:
     - https://github.com/alauda/kubeflow-chart
     type: application
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/istio-1.0.tgz
+    - istio-1.0.tgz
     version: "1.0"
   kube-prometheus-stack:
   - annotations:
@@ -53,7 +53,7 @@ entries:
       artifacthub.io/operator: "true"
     apiVersion: v2
     appVersion: 0.45.0
-    created: "2022-07-14T15:58:40.225618209+08:00"
+    created: "2022-07-14T18:04:02.116722141+08:00"
     dependencies:
     - condition: kubeStateMetrics.enabled
       name: kube-state-metrics
@@ -96,12 +96,12 @@ entries:
     - https://github.com/prometheus-operator/kube-prometheus
     type: application
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/kube-prometheus-stack-13.13.0.tgz
+    - kube-prometheus-stack-13.13.0.tgz
     version: 13.13.0
   kubeflow:
   - apiVersion: v2
     appVersion: 1.5.0
-    created: "2022-07-14T15:58:40.237012833+08:00"
+    created: "2022-07-14T18:04:02.130431006+08:00"
     dependencies:
     - condition: minio.enabled
       import-values:
@@ -137,23 +137,23 @@ entries:
     - https://github.com/kubeflow/manifests
     type: application
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/kubeflow-1.5.0.tgz
+    - kubeflow-1.5.0.tgz
     version: 1.5.0
   kubernetes-replicator:
   - apiVersion: v2
     appVersion: v2.7.3
-    created: "2022-07-14T15:58:40.237298411+08:00"
+    created: "2022-07-14T18:04:02.130753532+08:00"
     description: Controller for replicating secrets+configmaps across namespaces
     digest: 74d70dcc442af0a8aaad48fde97c60e653c6ee9a5c1520757be1268071e3caad
     name: kubernetes-replicator
     type: application
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/kubernetes-replicator-2.7.3.tgz
+    - kubernetes-replicator-2.7.3.tgz
     version: 2.7.3
   loki:
   - apiVersion: v1
     appVersion: v2.0.0
-    created: "2022-07-14T15:58:40.237922925+08:00"
+    created: "2022-07-14T18:04:02.131538474+08:00"
     description: 'DEPRECATED Loki: like Prometheus, but for logs.'
     digest: 19fe57ebd65c61cd9c78a659e555633682e3a37fb734092b6c7e515d974108f3
     home: https://grafana.com/loki
@@ -163,12 +163,12 @@ entries:
     sources:
     - https://github.com/grafana/loki
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/loki-2.1.1.tgz
+    - loki-2.1.1.tgz
     version: 2.1.1
   promtail:
   - apiVersion: v1
     appVersion: v2.0.0
-    created: "2022-07-14T15:58:40.238593883+08:00"
+    created: "2022-07-14T18:04:02.132422799+08:00"
     description: DEPRECATED Responsible for gathering logs and sending them to Loki
     digest: 216fbe0001ea7c42b6af028351abf219801af89b7e4be84aa42200e9cfb2d880
     home: https://grafana.com/loki
@@ -178,6 +178,6 @@ entries:
     sources:
     - https://github.com/grafana/loki
     urls:
-    - https://github.com/javyxu/javyxu.github.io/helm-chart/promtail-2.0.2.tgz
+    - promtail-2.0.2.tgz
     version: 2.0.2
-generated: "2022-07-14T15:58:40.205773438+08:00"
+generated: "2022-07-14T18:04:02.097637969+08:00"
