@@ -1,0 +1,183 @@
+apiVersion: v1
+entries:
+  cert-manager:
+  - annotations:
+      artifacthub.io/prerelease: "false"
+    apiVersion: v1
+    appVersion: v1.5.0
+    created: "2022-07-14T15:58:40.211939869+08:00"
+    description: A Helm chart for cert-manager
+    digest: 35b831904c9c3f56365b45e2678dc8eb924e69d0883af8e0c188173d461dd48b
+    home: https://github.com/jetstack/cert-manager
+    icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
+    keywords:
+    - cert-manager
+    - kube-lego
+    - letsencrypt
+    - tls
+    maintainers:
+    - email: cert-manager-maintainers@googlegroups.com
+      name: cert-manager-maintainers
+    name: cert-manager
+    sources:
+    - https://github.com/jetstack/cert-manager
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/cert-manager-v1.5.0.tgz
+    version: v1.5.0
+  istio:
+  - apiVersion: v2
+    appVersion: "1.11"
+    created: "2022-07-14T15:58:40.212876291+08:00"
+    description: istio for kubeflow.
+    digest: d47d7fcc0d481d753f527cf48d6a87304e4fdd5a8970ce6312c2b4c8c36292c8
+    keywords:
+    - istio
+    kubeVersion: '>=1.20.0'
+    maintainers:
+    - email: Asakiny@dmetasoul.com
+      name: Asakiny
+    name: istio
+    sources:
+    - https://github.com/alauda/kubeflow-chart
+    type: application
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/istio-1.0.tgz
+    version: "1.0"
+  kube-prometheus-stack:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/prometheus-community/helm-charts
+        - name: Upstream Project
+          url: https://github.com/prometheus-operator/kube-prometheus
+      artifacthub.io/operator: "true"
+    apiVersion: v2
+    appVersion: 0.45.0
+    created: "2022-07-14T15:58:40.225618209+08:00"
+    dependencies:
+    - condition: kubeStateMetrics.enabled
+      name: kube-state-metrics
+      repository: https://kubernetes.github.io/kube-state-metrics
+      version: 2.13.*
+    - condition: nodeExporter.enabled
+      name: prometheus-node-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 1.14.*
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.4.*
+    description: kube-prometheus-stack collects Kubernetes manifests, Grafana dashboards,
+      and Prometheus rules combined with documentation and scripts to provide easy
+      to operate end-to-end Kubernetes cluster monitoring with Prometheus using the
+      Prometheus Operator.
+    digest: 4fff980a45789c9c371181a8a797b04209b91c80ba0ad9cb3c8b4998971f7fff
+    home: https://github.com/prometheus-operator/kube-prometheus
+    icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
+    keywords:
+    - operator
+    - prometheus
+    - kube-prometheus
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - name: vsliouniaev
+    - name: bismarck
+    - email: gianrubio@gmail.com
+      name: gianrubio
+    - email: github.gkarthiks@gmail.com
+      name: gkarthiks
+    - email: scott@r6by.com
+      name: scottrigby
+    - email: miroslav.hadzhiev@gmail.com
+      name: Xtigyro
+    name: kube-prometheus-stack
+    sources:
+    - https://github.com/prometheus-community/helm-charts
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/kube-prometheus-stack-13.13.0.tgz
+    version: 13.13.0
+  kubeflow:
+  - apiVersion: v2
+    appVersion: 1.5.0
+    created: "2022-07-14T15:58:40.237012833+08:00"
+    dependencies:
+    - condition: minio.enabled
+      import-values:
+      - secrets
+      name: minio
+      repository: ""
+      version: "1"
+    - condition: dex.enabled
+      name: dex
+      repository: ""
+      version: "1"
+    description: 'The Kubeflow project is dedicated to making deployments of machine
+      learning (ML) workflows on Kubernetes simple, portable and scalable. Our goal
+      is not to recreate other services, but to provide a straightforward way to deploy
+      best-of-breed open-source systems for ML to diverse infrastructures. Anywhere
+      you are running Kubernetes, you should be able to run Kubeflow. '
+    digest: 9bba05d1c1e63f5cb38a14ae5d841492338dad23b0b82303917f467420371efa
+    home: https://github.com/alauda/kubeflow-chart
+    keywords:
+    - Kubeflow
+    - Kubernetes
+    - machine learning
+    - tensorflow
+    - pytorch
+    - XGBoost
+    kubeVersion: '>=1.20.0'
+    maintainers:
+    - email: typhoonzero1986@gmail.com
+      name: typhoonzero
+    name: kubeflow
+    sources:
+    - https://github.com/alauda/kubeflow-chart
+    - https://github.com/kubeflow/manifests
+    type: application
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/kubeflow-1.5.0.tgz
+    version: 1.5.0
+  kubernetes-replicator:
+  - apiVersion: v2
+    appVersion: v2.7.3
+    created: "2022-07-14T15:58:40.237298411+08:00"
+    description: Controller for replicating secrets+configmaps across namespaces
+    digest: 74d70dcc442af0a8aaad48fde97c60e653c6ee9a5c1520757be1268071e3caad
+    name: kubernetes-replicator
+    type: application
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/kubernetes-replicator-2.7.3.tgz
+    version: 2.7.3
+  loki:
+  - apiVersion: v1
+    appVersion: v2.0.0
+    created: "2022-07-14T15:58:40.237922925+08:00"
+    description: 'DEPRECATED Loki: like Prometheus, but for logs.'
+    digest: 19fe57ebd65c61cd9c78a659e555633682e3a37fb734092b6c7e515d974108f3
+    home: https://grafana.com/loki
+    icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+    kubeVersion: ^1.10.0-0
+    name: loki
+    sources:
+    - https://github.com/grafana/loki
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/loki-2.1.1.tgz
+    version: 2.1.1
+  promtail:
+  - apiVersion: v1
+    appVersion: v2.0.0
+    created: "2022-07-14T15:58:40.238593883+08:00"
+    description: DEPRECATED Responsible for gathering logs and sending them to Loki
+    digest: 216fbe0001ea7c42b6af028351abf219801af89b7e4be84aa42200e9cfb2d880
+    home: https://grafana.com/loki
+    icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+    kubeVersion: ^1.10.0-0
+    name: promtail
+    sources:
+    - https://github.com/grafana/loki
+    urls:
+    - https://github.com/javyxu/javyxu.github.io/helm-chart/promtail-2.0.2.tgz
+    version: 2.0.2
+generated: "2022-07-14T15:58:40.205773438+08:00"
