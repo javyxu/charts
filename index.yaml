@@ -3,7 +3,7 @@ entries:
   alpha-ide:
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2022-07-18T16:09:08.127623057+08:00"
+    created: "2022-07-18T16:18:15.425104004+08:00"
     dependencies:
     - condition: kubeflow.enabled
       name: kubeflow
@@ -34,7 +34,7 @@ entries:
       repository: http://raw.githubusercontent.com/javyxu/charts/main
       version: 2.0.2
     description: A Helm chart for Kubernetes
-    digest: e93d831a158d0be8a1ef89e18cd78f4f365385d65107d8dcbc127bcb1bfb937b
+    digest: 57e535a9043a57dffcc745f4fe37848c1cea324b45081f44c1cbe30e76da174a
     name: alpha-ide
     type: application
     urls:
@@ -45,7 +45,7 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v1
     appVersion: v1.5.0
-    created: "2022-07-18T16:09:08.132071262+08:00"
+    created: "2022-07-18T16:18:15.429966992+08:00"
     description: A Helm chart for cert-manager
     digest: 2974aa1443c153855faf12521475fc077f0ee70040aee02bcb158db03418ae43
     home: https://github.com/jetstack/cert-manager
@@ -67,7 +67,7 @@ entries:
   istio:
   - apiVersion: v2
     appVersion: "1.11"
-    created: "2022-07-18T16:09:08.132882529+08:00"
+    created: "2022-07-18T16:18:15.430894683+08:00"
     description: istio for kubeflow.
     digest: a9c40e730d9c342c18f31ee97c39bbb4c0460a0cee90b81bdc33b38f24f6f4f3
     keywords:
@@ -93,7 +93,7 @@ entries:
       artifacthub.io/operator: "true"
     apiVersion: v2
     appVersion: 0.45.0
-    created: "2022-07-18T16:09:08.146619786+08:00"
+    created: "2022-07-18T16:18:15.445530582+08:00"
     dependencies:
     - condition: kubeStateMetrics.enabled
       name: kube-state-metrics
@@ -141,7 +141,7 @@ entries:
   kubeflow:
   - apiVersion: v2
     appVersion: 1.5.0
-    created: "2022-07-18T16:09:08.158995994+08:00"
+    created: "2022-07-18T16:18:15.457931168+08:00"
     dependencies:
     - condition: minio.enabled
       import-values:
@@ -182,7 +182,7 @@ entries:
   kubernetes-replicator:
   - apiVersion: v2
     appVersion: v2.7.3
-    created: "2022-07-18T16:09:08.159340866+08:00"
+    created: "2022-07-18T16:18:15.458217165+08:00"
     description: Controller for replicating secrets+configmaps across namespaces
     digest: 7c4b3d7733f08b8c19c213ad95a46a7614dc9641042c082a7a59aed979f1edc7
     name: kubernetes-replicator
@@ -193,7 +193,7 @@ entries:
   loki:
   - apiVersion: v1
     appVersion: v2.0.0
-    created: "2022-07-18T16:09:08.16008767+08:00"
+    created: "2022-07-18T16:18:15.458886655+08:00"
     description: 'DEPRECATED Loki: like Prometheus, but for logs.'
     digest: 4ee01c57f0508c6e35cacdf0869541409ca9f652fc445cc659957d57d28a529a
     home: https://grafana.com/loki
@@ -208,7 +208,7 @@ entries:
   promtail:
   - apiVersion: v1
     appVersion: v2.0.0
-    created: "2022-07-18T16:09:08.160920586+08:00"
+    created: "2022-07-18T16:18:15.459616278+08:00"
     description: DEPRECATED Responsible for gathering logs and sending them to Loki
     digest: adb48cbaa18c4c3391591dfce23918a43c243a19f6c5fd95aa3bf9ff454d6736
     home: https://grafana.com/loki
@@ -220,4 +220,4 @@ entries:
     urls:
     - promtail-2.0.2.tgz
     version: 2.0.2
-generated: "2022-07-18T16:09:08.083655172+08:00"
+generated: "2022-07-18T16:18:15.380421497+08:00"
