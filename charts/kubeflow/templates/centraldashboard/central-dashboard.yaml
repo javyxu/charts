@@ -113,6 +113,12 @@ data:
         },
         {
           "type": "item",
+          "link": "/configurations/",
+          "text": "Notebook Config",
+          "icon": "settings"
+        },
+        {
+          "type": "item",
           "link": "/tensorboards/",
           "text": "Tensorboards",
           "icon": "assessment"
@@ -128,6 +134,18 @@ data:
           "link": "/kserve-endpoints/",
           "text": "Models",
           "icon": "kubeflow:models"
+        },
+        {
+          "type": "item",
+          "link": "/secrets/",
+          "text": "Secrets",
+          "icon": "device:storage"
+        },
+        {
+          "type": "item",
+          "link": "/configmaps/",
+          "text": "ConfigMap",
+          "icon": "device:storage"
         },
         {
           "type": "item",
