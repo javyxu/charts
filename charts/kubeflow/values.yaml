@@ -71,6 +71,9 @@ centralDashboardImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/cen
 kfamAccessManagementImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/access-management:v1.5.0
 kfamProfileControllerImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/notebooks/profile-controller:v1.5.0
 volumesWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/volumes-web-app:latest
+secretsWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/secrets-web-app:latest
+configmapsWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/configmaps-web-app:latest
+configurationsWebAppImage: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/configurations-web-app:latest
 notebookImageCodeserverPython: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/metaspore-training-codeserver:v1.0.0
 notebookImageRstudioTidyverse: swr.cn-southwest-2.myhuaweicloud.com/dmetasoul-public/rstudio-tidyverse:v1.5.0
 
@@ -222,4 +225,10 @@ training-operator:
 user-namespace:
   enabled: true
 volumes-web-app:
+  enabled: true
+secrets-web-app:
+  enabled: true
+configmaps-web-app:
+  enabled: true
+configurations-web-app:
   enabled: true

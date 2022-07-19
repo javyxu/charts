@@ -1,0 +1,217 @@
+{{- if ".Values.configmaps-web-app.enabled" }}
+{{- include "prechecks" . -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  name: configmaps-web-app-service-account
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  name: configmaps-web-app-cluster-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - pods
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+    rbac.authorization.kubeflow.org/aggregate-to-kubeflow-admin: "true"
+  name: configmaps-web-app-kubeflow-configmap-ui-admin
+rules: []
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+    rbac.authorization.kubeflow.org/aggregate-to-kubeflow-edit: "true"
+  name: configmaps-web-app-kubeflow-configmap-ui-edit
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+    rbac.authorization.kubeflow.org/aggregate-to-kubeflow-view: "true"
+  name: configmaps-web-app-kubeflow-configmap-ui-view
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  name: configmaps-web-app-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: configmaps-web-app-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: configmaps-web-app-service-account
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: v1
+data:
+  CMWA_CLUSTER_DOMAIN: cluster.local
+  CMWA_PREFIX: /configmaps
+  CMWA_USERID_HEADER: kubeflow-userid
+  CMWA_USERID_PREFIX: ""
+kind: ConfigMap
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  name: configmaps-web-app-parameters-fd56h6gfgf
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+    run: configmaps-web-app
+  name: configmaps-web-app-service
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  name: configmaps-web-app-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configmaps-web-app
+      kustomize.component: configmaps-web-app
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        app: configmaps-web-app
+        kustomize.component: configmaps-web-app
+    spec:
+      containers:
+      - env:
+        - name: APP_PREFIX
+          value: /configmaps
+        - name: USERID_HEADER
+          value: kubeflow-userid
+        - name: USERID_PREFIX
+          value: ""
+        image: {{ .Values.configmapsWebAppImage }}
+        name: configmaps-web-app
+        ports:
+        - containerPort: 5000
+      serviceAccountName: configmaps-web-app-service-account
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  labels:
+    app: configmaps-web-app
+    kustomize.component: configmaps-web-app
+  name: configmaps-web-app-configmaps-web-app
+  namespace: {{ .Values.namespace }}
+spec:
+  gateways:
+  - kubeflow-gateway
+  hosts:
+  - '*'
+  http:
+  - headers:
+      request:
+        add:
+          x-forwarded-prefix: /configmaps
+    match:
+    - uri:
+        prefix: /configmaps/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: configmaps-web-app-service.kubeflow.svc.cluster.local
+        port:
+          number: 80
+{{- end }}
