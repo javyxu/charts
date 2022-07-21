@@ -12,13 +12,13 @@
   安装cert-manager
 
   ```bash
-  helm install cert-manager ./charts/cert-manager/ -n cert-manager --namespace cert-manager --create-namespace
+  helm install cert-manager ./charts/cert-manager/ --namespace cert-manager --create-namespace
   ```
 ## 安装AlphaIDE
 
 
 ```bash
-helm upgrade --install alpha-ide ./ 
+helm install ./charts/alpha-ide
 ```
 该命令将自动部署alpha-ide, 定制kubeflow, prometheus-stack等组件。
 访问：

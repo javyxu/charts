@@ -124,6 +124,7 @@ data:
   CWA_PREFIX: /configurations
   CWA_USERID_HEADER: kubeflow-userid
   CWA_USERID_PREFIX: ""
+  CWA_SECURE_COOKIES: "False"
 kind: ConfigMap
 metadata:
   labels:
@@ -182,6 +183,8 @@ spec:
           value: kubeflow-userid
         - name: USERID_PREFIX
           value: ""
+        - name: APP_SECURE_COOKIES
+          value: $(CWA_SECURE_COOKIES)
         image: {{ .Values.configurationsWebAppImage }}
         imagePullPolicy: Always
         name: configurations-web-app

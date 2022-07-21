@@ -900,6 +900,9 @@ metadata:
     app.kubernetes.io/name: kfserving
   name: serving-cert
   namespace: {{ .Values.namespace }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
 spec:
   commonName: kfserving-webhook-server-service.kubeflow.svc
   dnsNames:
@@ -917,6 +920,9 @@ metadata:
     app.kubernetes.io/name: kfserving
   name: selfsigned-issuer
   namespace: {{ .Values.namespace }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "-5"
 spec:
   selfSigned: {}
 ---

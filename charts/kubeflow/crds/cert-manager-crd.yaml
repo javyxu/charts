@@ -1,15 +1,29 @@
-{{- if .Values.installCRDs }}
+# Copyright  The cert-manager Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# Source: cert-manager/templates/templates.out
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: certificaterequests.cert-manager.io
   annotations:
-    cert-manager.io/inject-ca-from-secret: '{{ template "webhook.caRef" . }}'
+    cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
   labels:
-    app: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/name: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/instance: '{{ .Release.Name }}'
-    # Generated labels {{- include "labels" . | nindent 4 }}
+    app: 'cert-manager'
+    app.kubernetes.io/name: 'cert-manager'
+    app.kubernetes.io/instance: 'cert-manager'
+    # Generated labels
+    app.kubernetes.io/version: "v1.5.0"
 spec:
   group: cert-manager.io
   names:
@@ -37,14 +51,12 @@ spec:
       # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
+        #
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Values.namespace }}"
+          name: 'cert-manager-webhook'
+          namespace: "cert-manager"
           path: /convert
-          # {{- end }}
+          #
   versions:
     - name: v1alpha2
       subresources:
@@ -733,17 +745,19 @@ status:
   conditions: []
   storedVersions: []
 ---
+# Source: cert-manager/templates/templates.out
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: certificates.cert-manager.io
   annotations:
-    cert-manager.io/inject-ca-from-secret: '{{ template "webhook.caRef" . }}'
+    cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
   labels:
-    app: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/name: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/instance: '{{ .Release.Name }}'
-    # Generated labels {{- include "labels" . | nindent 4 }}
+    app: 'cert-manager'
+    app.kubernetes.io/name: 'cert-manager'
+    app.kubernetes.io/instance: 'cert-manager'
+    # Generated labels
+    app.kubernetes.io/version: "v1.5.0"
 spec:
   group: cert-manager.io
   names:
@@ -771,14 +785,12 @@ spec:
       # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
+        #
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Values.namespace }}"
+          name: 'cert-manager-webhook'
+          namespace: "cert-manager"
           path: /convert
-          # {{- end }}
+          #
   versions:
     - name: v1alpha2
       subresources:
@@ -2060,17 +2072,19 @@ status:
   conditions: []
   storedVersions: []
 ---
+# Source: cert-manager/templates/templates.out
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: challenges.acme.cert-manager.io
   annotations:
-    cert-manager.io/inject-ca-from-secret: '{{ template "webhook.caRef" . }}'
+    cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
   labels:
-    app: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/name: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/instance: '{{ .Release.Name }}'
-    # Generated labels {{- include "labels" . | nindent 4 }}
+    app: 'cert-manager'
+    app.kubernetes.io/name: 'cert-manager'
+    app.kubernetes.io/instance: 'cert-manager'
+    # Generated labels
+    app.kubernetes.io/version: "v1.5.0"
 spec:
   group: acme.cert-manager.io
   names:
@@ -2096,14 +2110,12 @@ spec:
       # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
+        #
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Values.namespace }}"
+          name: 'cert-manager-webhook'
+          namespace: "cert-manager"
           path: /convert
-          # {{- end }}
+          #
   versions:
     - additionalPrinterColumns:
         - jsonPath: .status.state
@@ -5942,17 +5954,19 @@ status:
   conditions: []
   storedVersions: []
 ---
+# Source: cert-manager/templates/templates.out
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: clusterissuers.cert-manager.io
   annotations:
-    cert-manager.io/inject-ca-from-secret: '{{ template "webhook.caRef" . }}'
+    cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
   labels:
-    app: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/name: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/instance: '{{ .Release.Name }}'
-    # Generated labels {{- include "labels" . | nindent 4 }}
+    app: 'cert-manager'
+    app.kubernetes.io/name: 'cert-manager'
+    app.kubernetes.io/instance: 'cert-manager'
+    # Generated labels
+    app.kubernetes.io/version: "v1.5.0"
 spec:
   group: cert-manager.io
   names:
@@ -5977,14 +5991,12 @@ spec:
       # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
+        #
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Values.namespace }}"
+          name: 'cert-manager-webhook'
+          namespace: "cert-manager"
           path: /convert
-          # {{- end }}
+          #
   versions:
     - name: v1alpha2
       subresources:
@@ -10673,17 +10685,19 @@ status:
   conditions: []
   storedVersions: []
 ---
+# Source: cert-manager/templates/templates.out
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: issuers.cert-manager.io
   annotations:
-    cert-manager.io/inject-ca-from-secret: '{{ template "webhook.caRef" . }}'
+    cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
   labels:
-    app: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/name: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/instance: '{{ .Release.Name }}'
-    # Generated labels {{- include "labels" . | nindent 4 }}
+    app: 'cert-manager'
+    app.kubernetes.io/name: 'cert-manager'
+    app.kubernetes.io/instance: 'cert-manager'
+    # Generated labels
+    app.kubernetes.io/version: "v1.5.0"
 spec:
   group: cert-manager.io
   names:
@@ -10708,14 +10722,12 @@ spec:
       # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
+        #
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Values.namespace }}"
+          name: 'cert-manager-webhook'
+          namespace: "cert-manager"
           path: /convert
-          # {{- end }}
+          #
   versions:
     - name: v1alpha2
       subresources:
@@ -15404,17 +15416,19 @@ status:
   conditions: []
   storedVersions: []
 ---
+# Source: cert-manager/templates/templates.out
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: orders.acme.cert-manager.io
   annotations:
-    cert-manager.io/inject-ca-from-secret: '{{ template "webhook.caRef" . }}'
+    cert-manager.io/inject-ca-from-secret: 'cert-manager/cert-manager-webhook-ca'
   labels:
-    app: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/name: '{{ template "cert-manager.name" . }}'
-    app.kubernetes.io/instance: '{{ .Release.Name }}'
-    # Generated labels {{- include "labels" . | nindent 4 }}
+    app: 'cert-manager'
+    app.kubernetes.io/name: 'cert-manager'
+    app.kubernetes.io/instance: 'cert-manager'
+    # Generated labels
+    app.kubernetes.io/version: "v1.5.0"
 spec:
   group: acme.cert-manager.io
   names:
@@ -15440,14 +15454,12 @@ spec:
       # When we no longer support v1.16 we can remove `v1beta1` from this list.
       conversionReviewVersions: ["v1", "v1beta1"]
       clientConfig:
-        # {{- if .Values.webhook.url.host }}
-        url: https://{{ .Values.webhook.url.host }}/convert
-        # {{- else }}
+        #
         service:
-          name: '{{ template "webhook.fullname" . }}'
-          namespace: "{{ .Values.namespace }}"
+          name: 'cert-manager-webhook'
+          namespace: "cert-manager"
           path: /convert
-          # {{- end }}
+          #
   versions:
     - name: v1alpha2
       subresources:
@@ -16085,5 +16097,3 @@ status:
     plural: ""
   conditions: []
   storedVersions: []
----
-{{- end }}
