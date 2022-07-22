@@ -8,7 +8,7 @@ image:
   repository: hub.kce.ksyun.com/dmetasoul/dmetasoul-ide
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "dmetasoul-v1.1.6"
+  tag: "dmetasoul-v1.1.5"
 
 istio:
   enabled: true
