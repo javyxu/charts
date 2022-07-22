@@ -1,0 +1,223 @@
+apiVersion: v1
+entries:
+  alpha-ide:
+  - apiVersion: v2
+    appVersion: 0.1.1
+    created: "2022-07-22T13:55:46.148937529+08:00"
+    dependencies:
+    - condition: kubeflow.enabled
+      name: kubeflow
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: 1.5.0
+    - condition: istio.enabled
+      name: istio
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: "1"
+    - condition: kubernetes-replicator.enabled
+      name: kubernetes-replicator
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: 2.7.3
+    - condition: cert-manager.enabled
+      name: cert-manager
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: v1.5.0
+    - condition: kube-prometheus-stack.enabled
+      name: kube-prometheus-stack
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: 13.13.0
+    - condition: loki.enabled
+      name: loki
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: 2.1.1
+    - condition: promtail.enabled
+      name: promtail
+      repository: http://raw.githubusercontent.com/javyxu/charts/main
+      version: 2.0.2
+    description: A Helm chart for AlphaIDE
+    digest: 98fcd3b7d32033a7e7de553533baaf469a911d88d684ab3267fe379926faf3ec
+    name: alpha-ide
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/alpha-ide-0.1.1.tgz
+    version: 0.1.1
+  cert-manager:
+  - annotations:
+      artifacthub.io/prerelease: "false"
+    apiVersion: v1
+    appVersion: v1.5.0
+    created: "2022-07-22T13:55:46.154815887+08:00"
+    description: A Helm chart for cert-manager
+    digest: 19395c625bdc6cffcd638f7c66e8b9a6efe77b5f4b57823a8d57d399d0795b75
+    home: https://github.com/jetstack/cert-manager
+    icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
+    keywords:
+    - cert-manager
+    - kube-lego
+    - letsencrypt
+    - tls
+    maintainers:
+    - email: cert-manager-maintainers@googlegroups.com
+      name: cert-manager-maintainers
+    name: cert-manager
+    sources:
+    - https://github.com/jetstack/cert-manager
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/cert-manager-v1.5.0.tgz
+    version: v1.5.0
+  istio:
+  - apiVersion: v2
+    appVersion: "1.11"
+    created: "2022-07-22T13:55:46.156191003+08:00"
+    description: istio for kubeflow.
+    digest: a9a59a20a620636789ee9fe6b3c8db33a1fe49c2c3fb95cc9c8e43994159b1b9
+    keywords:
+    - istio
+    kubeVersion: '>=1.20.0'
+    maintainers:
+    - email: Asakiny@dmetasoul.com
+      name: Asakiny
+    name: istio
+    sources:
+    - https://github.com/alauda/kubeflow-chart
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/istio-1.0.tgz
+    version: "1.0"
+  kube-prometheus-stack:
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/prometheus-community/helm-charts
+        - name: Upstream Project
+          url: https://github.com/prometheus-operator/kube-prometheus
+      artifacthub.io/operator: "true"
+    apiVersion: v2
+    appVersion: 0.45.0
+    created: "2022-07-22T13:55:46.170979119+08:00"
+    dependencies:
+    - condition: kubeStateMetrics.enabled
+      name: kube-state-metrics
+      repository: https://kubernetes.github.io/kube-state-metrics
+      version: 2.13.*
+    - condition: nodeExporter.enabled
+      name: prometheus-node-exporter
+      repository: https://prometheus-community.github.io/helm-charts
+      version: 1.14.*
+    - condition: grafana.enabled
+      name: grafana
+      repository: https://grafana.github.io/helm-charts
+      version: 6.4.*
+    description: kube-prometheus-stack collects Kubernetes manifests, Grafana dashboards,
+      and Prometheus rules combined with documentation and scripts to provide easy
+      to operate end-to-end Kubernetes cluster monitoring with Prometheus using the
+      Prometheus Operator.
+    digest: fae46d10f24455725913ab4984519651a5d97527f19cb551d46334778ef5ab2c
+    home: https://github.com/prometheus-operator/kube-prometheus
+    icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
+    keywords:
+    - operator
+    - prometheus
+    - kube-prometheus
+    kubeVersion: '>=1.16.0-0'
+    maintainers:
+    - name: vsliouniaev
+    - name: bismarck
+    - email: gianrubio@gmail.com
+      name: gianrubio
+    - email: github.gkarthiks@gmail.com
+      name: gkarthiks
+    - email: scott@r6by.com
+      name: scottrigby
+    - email: miroslav.hadzhiev@gmail.com
+      name: Xtigyro
+    name: kube-prometheus-stack
+    sources:
+    - https://github.com/prometheus-community/helm-charts
+    - https://github.com/prometheus-operator/kube-prometheus
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/kube-prometheus-stack-13.13.0.tgz
+    version: 13.13.0
+  kubeflow:
+  - apiVersion: v2
+    appVersion: 1.5.0
+    created: "2022-07-22T13:55:46.189984839+08:00"
+    dependencies:
+    - condition: minio.enabled
+      import-values:
+      - secrets
+      name: minio
+      repository: ""
+      version: "1"
+    - condition: dex.enabled
+      name: dex
+      repository: ""
+      version: "1"
+    description: 'The Kubeflow project is dedicated to making deployments of machine
+      learning (ML) workflows on Kubernetes simple, portable and scalable. Our goal
+      is not to recreate other services, but to provide a straightforward way to deploy
+      best-of-breed open-source systems for ML to diverse infrastructures. Anywhere
+      you are running Kubernetes, you should be able to run Kubeflow. '
+    digest: f72fd13aaa4b85cd232c9fca99e47fb4f90449b98b563ce4c30ee74c8c5a853b
+    home: https://github.com/alauda/kubeflow-chart
+    keywords:
+    - Kubeflow
+    - Kubernetes
+    - machine learning
+    - tensorflow
+    - pytorch
+    - XGBoost
+    kubeVersion: '>=1.20.0'
+    maintainers:
+    - email: typhoonzero1986@gmail.com
+      name: typhoonzero
+    name: kubeflow
+    sources:
+    - https://github.com/alauda/kubeflow-chart
+    - https://github.com/kubeflow/manifests
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/kubeflow-1.5.0.tgz
+    version: 1.5.0
+  kubernetes-replicator:
+  - apiVersion: v2
+    appVersion: v2.7.3
+    created: "2022-07-22T13:55:46.190500805+08:00"
+    description: Controller for replicating secrets+configmaps across namespaces
+    digest: be341025c21f945661f444f2c79c94658f61df21e91a9ebf9dbe6562ddc0483b
+    name: kubernetes-replicator
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/kubernetes-replicator-2.7.3.tgz
+    version: 2.7.3
+  loki:
+  - apiVersion: v1
+    appVersion: v2.0.0
+    created: "2022-07-22T13:55:46.191547261+08:00"
+    description: 'DEPRECATED Loki: like Prometheus, but for logs.'
+    digest: 4dcd274000cdd673e0a3c3aeaff678efe7c2f1415d11aeeafe999d4c2190fdff
+    home: https://grafana.com/loki
+    icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+    kubeVersion: ^1.10.0-0
+    name: loki
+    sources:
+    - https://github.com/grafana/loki
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/loki-2.1.1.tgz
+    version: 2.1.1
+  promtail:
+  - apiVersion: v1
+    appVersion: v2.0.0
+    created: "2022-07-22T13:55:46.192712513+08:00"
+    description: DEPRECATED Responsible for gathering logs and sending them to Loki
+    digest: ac0bb19dc68341ba5008ec6cef0ee1b240deca75b305144dda63805662f063e1
+    home: https://grafana.com/loki
+    icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
+    kubeVersion: ^1.10.0-0
+    name: promtail
+    sources:
+    - https://github.com/grafana/loki
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/main/promtail-2.0.2.tgz
+    version: 2.0.2
+generated: "2022-07-22T13:55:46.10720301+08:00"
