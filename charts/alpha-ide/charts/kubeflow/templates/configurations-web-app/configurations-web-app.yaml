@@ -1,0 +1,223 @@
+{{- if ".Values.volumes-web-app.enabled" }}
+{{- include "prechecks" . -}}
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  name: configurations-web-app-service-account
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  name: configurations-web-app-cluster-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - pods
+  - secrets
+  - configmaps
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+- apiGroups:
+  - kubeflow.org
+  resources:
+  - poddefaults
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+    rbac.authorization.kubeflow.org/aggregate-to-kubeflow-admin: "true"
+  name: configurations-web-app-kubeflow-configuration-ui-admin
+rules: []
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+    rbac.authorization.kubeflow.org/aggregate-to-kubeflow-edit: "true"
+  name: configurations-web-app-kubeflow-configuration-ui-edit
+rules:
+- apiGroups:
+  - kubeflow.org
+  resources:
+  - poddefaults
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+    rbac.authorization.kubeflow.org/aggregate-to-kubeflow-view: "true"
+  name: configurations-web-app-kubeflow-configuration-ui-view
+rules:
+- apiGroups:
+  - kubeflow.org
+  resources:
+  - poddefaults
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  name: configurations-web-app-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: configurations-web-app-cluster-role
+subjects:
+- kind: ServiceAccount
+  name: configurations-web-app-service-account
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: v1
+data:
+  CWA_CLUSTER_DOMAIN: cluster.local
+  CWA_PREFIX: /configurations
+  CWA_USERID_HEADER: kubeflow-userid
+  CWA_USERID_PREFIX: ""
+  CWA_SECURE_COOKIES: "False"
+kind: ConfigMap
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  name: configurations-web-app-parameters-46fd82b5f9
+  namespace: {{ .Values.namespace }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+    run: configurations-web-app
+  name: configurations-web-app-service
+  namespace: {{ .Values.namespace }}
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  name: configurations-web-app-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: configurations-web-app
+      kustomize.component: configurations-web-app
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        app: configurations-web-app
+        kustomize.component: configurations-web-app
+    spec:
+      containers:
+      - env:
+        - name: APP_PREFIX
+          value: /configurations
+        - name: USERID_HEADER
+          value: kubeflow-userid
+        - name: USERID_PREFIX
+          value: ""
+        - name: APP_SECURE_COOKIES
+          value: $(CWA_SECURE_COOKIES)
+        image: {{ .Values.configurationsWebAppImage }}
+        imagePullPolicy: Always
+        name: configurations-web-app
+        ports:
+        - containerPort: 5000
+      serviceAccountName: configurations-web-app-service-account
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  labels:
+    app: configurations-web-app
+    kustomize.component: configurations-web-app
+  name: configurations-web-app-configurations-web-app
+  namespace: {{ .Values.namespace }}
+spec:
+  gateways:
+  - kubeflow-gateway
+  hosts:
+  - '*'
+  http:
+  - headers:
+      request:
+        add:
+          x-forwarded-prefix: /configurations
+    match:
+    - uri:
+        prefix: /configurations/
+    rewrite:
+      uri: /
+    route:
+    - destination:
+        host: configurations-web-app-service.kubeflow.svc.cluster.local
+        port:
+          number: 80
+{{- end }}
