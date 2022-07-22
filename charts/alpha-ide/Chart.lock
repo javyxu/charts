@@ -1,24 +1,24 @@
 dependencies:
 - name: kubeflow
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: 1.5.0
 - name: istio
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: "1.0"
 - name: kubernetes-replicator
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: 2.7.3
 - name: cert-manager
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: v1.5.0
 - name: kube-prometheus-stack
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: 13.13.0
 - name: loki
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: 2.1.1
 - name: promtail
-  repository: http://raw.githubusercontent.com/javyxu/charts/main
+  repository: http://raw.githubusercontent.com/javyxu/charts/configs
   version: 2.0.2
 digest: sha256:473d6146d1d0a30a38c423385a2f489c48b1798b8dc1dee4433ad8e4f333b4fb
 generated: "2022-07-14T23:50:24.967827924+08:00"

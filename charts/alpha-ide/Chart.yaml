@@ -19,32 +19,32 @@ version: 0.1.1
 dependencies:
   - name: kubeflow
     version: 1.5.0
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: kubeflow.enabled
   - name: istio
     version: 1.0
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: istio.enabled
 
   - name: kubernetes-replicator
     version: 2.7.3
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: kubernetes-replicator.enabled
 
   - name: cert-manager
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: cert-manager.enabled
     version: v1.5.0
   - name: kube-prometheus-stack
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: kube-prometheus-stack.enabled
     version: 13.13.0
   - name: loki
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: loki.enabled
     version: 2.1.1
   - name: promtail
-    repository: http://raw.githubusercontent.com/javyxu/charts/main
+    repository: http://raw.githubusercontent.com/javyxu/charts/configs
     condition: promtail.enabled
     version: 2.0.2
 # This is the version number of the application being deployed. This version number should be
