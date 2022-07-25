@@ -2,8 +2,47 @@ apiVersion: v1
 entries:
   alpha-ide:
   - apiVersion: v2
+    appVersion: 0.1.3
+    created: "2022-07-25T15:08:30.207463066+08:00"
+    dependencies:
+    - condition: kubeflow.enabled
+      name: kubeflow
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: 1.5.0
+    - condition: istio.enabled
+      name: istio
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: "1"
+    - condition: kubernetes-replicator.enabled
+      name: kubernetes-replicator
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: 2.7.3
+    - condition: cert-manager.enabled
+      name: cert-manager
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: v1.5.0
+    - condition: kube-prometheus-stack.enabled
+      name: kube-prometheus-stack
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: 13.13.0
+    - condition: loki.enabled
+      name: loki
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: 2.1.1
+    - condition: promtail.enabled
+      name: promtail
+      repository: http://raw.githubusercontent.com/javyxu/charts/configs
+      version: 2.0.2
+    description: A Helm chart for AlphaIDE
+    digest: 04b9d4fcb42c6ea453c074c1518c246825eb9d17052945b9646573bfcf87dca4
+    name: alpha-ide
+    type: application
+    urls:
+    - https://raw.githubusercontent.com/javyxu/charts/configs/alpha-ide-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     appVersion: 0.1.2
-    created: "2022-07-25T15:05:22.14667254+08:00"
+    created: "2022-07-25T15:08:30.169611483+08:00"
     dependencies:
     - condition: kubeflow.enabled
       name: kubeflow
@@ -42,7 +81,7 @@ entries:
     version: 0.1.2
   - apiVersion: v2
     appVersion: 0.1.1
-    created: "2022-07-25T15:05:22.082941723+08:00"
+    created: "2022-07-25T15:08:30.125357757+08:00"
     dependencies:
     - condition: kubeflow.enabled
       name: kubeflow
@@ -84,9 +123,9 @@ entries:
       artifacthub.io/prerelease: "false"
     apiVersion: v1
     appVersion: v1.5.0
-    created: "2022-07-25T15:05:22.159598908+08:00"
+    created: "2022-07-25T15:08:30.213622777+08:00"
     description: A Helm chart for cert-manager
-    digest: 83fb78c1051d090e759d11619753b22a67820a6a1c06782289d17aa29198f38f
+    digest: a3eef65cdc8249f2c13735a793d04de099b5146932e20ddcc76caec47bb08368
     home: https://github.com/jetstack/cert-manager
     icon: https://raw.githubusercontent.com/jetstack/cert-manager/master/logo/logo.png
     keywords:
@@ -106,9 +145,9 @@ entries:
   istio:
   - apiVersion: v2
     appVersion: "1.11"
-    created: "2022-07-25T15:05:22.161833091+08:00"
+    created: "2022-07-25T15:08:30.214701884+08:00"
     description: istio for kubeflow.
-    digest: d0dc7f6ea06e1906778319872acf07387e596752e623d5b8e0dd1f6ec675d0b1
+    digest: a46044ad273785d4da25d903203ea0e7876d5ef0c794a45ae42d5cd519392331
     keywords:
     - istio
     kubeVersion: '>=1.20.0'
@@ -132,7 +171,7 @@ entries:
       artifacthub.io/operator: "true"
     apiVersion: v2
     appVersion: 0.45.0
-    created: "2022-07-25T15:05:22.190945985+08:00"
+    created: "2022-07-25T15:08:30.229992028+08:00"
     dependencies:
     - condition: kubeStateMetrics.enabled
       name: kube-state-metrics
@@ -150,7 +189,7 @@ entries:
       and Prometheus rules combined with documentation and scripts to provide easy
       to operate end-to-end Kubernetes cluster monitoring with Prometheus using the
       Prometheus Operator.
-    digest: e281c9e174c300d20e4859d594a5fec869277a4cc5e275150768cd0dfc26e481
+    digest: ed9d7640dd2c0f95349464c54fbd9901425f10c9054ed9d4b6393a97748a0412
     home: https://github.com/prometheus-operator/kube-prometheus
     icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
     keywords:
@@ -180,7 +219,7 @@ entries:
   kubeflow:
   - apiVersion: v2
     appVersion: 1.5.0
-    created: "2022-07-25T15:05:22.221527893+08:00"
+    created: "2022-07-25T15:08:30.2509691+08:00"
     dependencies:
     - condition: minio.enabled
       import-values:
@@ -197,7 +236,7 @@ entries:
       is not to recreate other services, but to provide a straightforward way to deploy
       best-of-breed open-source systems for ML to diverse infrastructures. Anywhere
       you are running Kubernetes, you should be able to run Kubeflow. '
-    digest: 4663e7bf3c03d714fbca784400bd7d6851ab7e8c2d42da2b1de31267ee59a725
+    digest: 3431fd37055a3fab51c78c8e2310c18164493979786de8e4c5ca8752b3f30f2e
     home: https://github.com/alauda/kubeflow-chart
     keywords:
     - Kubeflow
@@ -221,9 +260,9 @@ entries:
   kubernetes-replicator:
   - apiVersion: v2
     appVersion: v2.7.3
-    created: "2022-07-25T15:05:22.22247634+08:00"
+    created: "2022-07-25T15:08:30.255560998+08:00"
     description: Controller for replicating secrets+configmaps across namespaces
-    digest: 39e5fe919168a99b7942e5d0d533e95d6d6f3bb75edd06b726e979e3a37b5ec1
+    digest: 7dd5999bfa8a5a2dd2e720cb64798bacf57cbff35e1c7b8e488ce99000dec222
     name: kubernetes-replicator
     type: application
     urls:
@@ -232,9 +271,9 @@ entries:
   loki:
   - apiVersion: v1
     appVersion: v2.0.0
-    created: "2022-07-25T15:05:22.223945982+08:00"
+    created: "2022-07-25T15:08:30.256663712+08:00"
     description: 'DEPRECATED Loki: like Prometheus, but for logs.'
-    digest: 361a0301e58bbd7423c5243bb2e0a5d4a1c3452c43c26adec77963e932061130
+    digest: e18579f0f7af97cf5c3e4a96c48f80a2cb2f0c7ec112cedc64485beb871c70c9
     home: https://grafana.com/loki
     icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
     kubeVersion: ^1.10.0-0
@@ -247,9 +286,9 @@ entries:
   promtail:
   - apiVersion: v1
     appVersion: v2.0.0
-    created: "2022-07-25T15:05:22.225797615+08:00"
+    created: "2022-07-25T15:08:30.257901019+08:00"
     description: DEPRECATED Responsible for gathering logs and sending them to Loki
-    digest: a08e9720c7234defcce51bf1282b2189b5cbae46b8a720f382511b556b08a846
+    digest: 93d129cbf9d842c9829f5a08f350b50d20d81343c173dcb9d0702dca7ca96da9
     home: https://grafana.com/loki
     icon: https://raw.githubusercontent.com/grafana/loki/master/docs/sources/logo.png
     kubeVersion: ^1.10.0-0
@@ -259,4 +298,4 @@ entries:
     urls:
     - https://raw.githubusercontent.com/javyxu/charts/configs/promtail-2.0.2.tgz
     version: 2.0.2
-generated: "2022-07-25T15:05:22.025323948+08:00"
+generated: "2022-07-25T15:08:30.049531944+08:00"
