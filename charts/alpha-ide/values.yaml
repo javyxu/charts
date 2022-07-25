@@ -8,24 +8,29 @@ image:
   repository: hub.kce.ksyun.com/dmetasoul/dmetasoul-ide
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "dmetasoul-v1.1.6"
+  tag: "dmetasoul-v1.1.5"
 
 istio:
   enabled: true
+  chart_verion: 1.0
 kubeflow:
   enabled: true
+  chart_verion: 1.5.0
 kubernetes-replicator:
   enabled: true
+  chart_verion: 2.7.3
 cert-manager:
   enabled: true
+  chart_verion: v1.5.0
 kube-prometheus-stack:
   enabled: true
+  chart_verion: 13.13.0
 loki:
   enabled: false
+  chart_verion: 2.1.1
 promtail:
   enabled: true
-
-
+  chart_verion: 2.0.2
 
 imagePullSecrets: []
 nameOverride: ""
